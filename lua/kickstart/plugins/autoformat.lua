@@ -66,11 +66,6 @@ return {
 
         -- Only attach to clients that support document formatting
         if not client.server_capabilities.documentFormattingProvider then
-          if client.name == "bashls" then
-            --  vim.cmd("Shfmt")
-            return
-          end
-
           if not is_prettier_formatting(client.id) then
             return
           end
@@ -86,30 +81,31 @@ return {
 
             local cur_dir = vim.fn.getcwd()
             if file_exists(cur_dir .. '/dprint.json') then
-              -- local cur_buf = vim.api.nvim_buf_get_name(0)
-              -- os.execute("dprint fmt " .. escape_path(cur_buf))
-              --  vim.cmd("e!")
               return
             end
 
+
+            -- if client.name == "bashls" then
+            --   vim.cmd(":Shfmt")
+            --   return
+            -- end
+
             -- if format is not enabled, do nothing
             if not format_is_enabled then
-              if is_prettier_formatting(client.name) then
-                prettier.format()
-              end
               return
             end
+            -- if is_prettier_formatting(client.name) then
+            --   prettier.format()
+            --   return
+            -- end
+
+
             vim.lsp.buf.format {
               async = false,
               filter = function(c)
                 return c.id == client.id
               end,
             }
-
-            if is_prettier_formatting(client.name) then
-              prettier.format()
-              return
-            end
 
             -- if not in prettier, format file using lsp
           end,
