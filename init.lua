@@ -274,7 +274,7 @@ local servers = {
   sqlls = {},
   taplo = {},
   yamlls = {},
-  omnisharp = {},
+  -- omnisharp = {},
 }
 
 -- Setup neovim lua configuration

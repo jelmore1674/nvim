@@ -20,10 +20,10 @@ local is_prettier_formatting = function(client_id)
   local file_types = require("custom.prettier")
   -- format files in prettier config with prettier
   for _, prettier_client in ipairs(file_types) do
-    if not client_id == prettier_client then
-      return false
+    if client_id == prettier_client then
+      return true
     end
-    return true
+    return false
   end
 end
 
@@ -84,30 +84,27 @@ return {
               return
             end
 
-
-            -- if client.name == "bashls" then
-            --   vim.cmd(":Shfmt")
-            --   return
-            -- end
+            if client.name == "bashls" then
+              vim.cmd("Shfmt")
+              return
+            end
 
             -- if format is not enabled, do nothing
             if not format_is_enabled then
               return
             end
-            -- if is_prettier_formatting(client.name) then
-            --   prettier.format()
-            --   return
-            -- end
 
+            if not is_prettier_formatting(client.name) then
+              vim.lsp.buf.format {
+                async = false,
+                filter = function(c)
+                  return c.id == client.id
+                end,
+              }
+              return
+            end
 
-            vim.lsp.buf.format {
-              async = false,
-              filter = function(c)
-                return c.id == client.id
-              end,
-            }
-
-            -- if not in prettier, format file using lsp
+            prettier.format()
           end,
         })
 
