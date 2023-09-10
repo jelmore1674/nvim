@@ -26,7 +26,7 @@ prettier.setup({
         embedded_language_formatting = "auto",
         end_of_line = "lf",
         html_whitespace_sensitivity = "css",
-        -- jsx_bracket_same_line = false,
+        jsx_bracket_same_line = false,
         jsx_single_quote = true,
         print_width = 80,
         prose_wrap = "preserve",
@@ -45,18 +45,19 @@ vim.keymap.set("n", "<leader>pp", ":Prettier<cr>")
 
 return {
     -- css formating lsp servers
-    "cssls",
-    "cssmodules_ls",
+    cssls = "",
+    cssmodules_ls = "",
     -- graphql lsp
-    "graphql",
+    graphql = "",
     -- html lsp
-    "html",
+    html = "",
     -- json lsp
-    "jsonls",
+    jsonls = "",
     -- markdown lsp
-    "marksman",
+    marksman = "",
     -- js/ts lsp
-    "tsserver",
+    eslint = "tsserver",
+    tsserver = "eslint",
     -- yaml lsp
-    "yamlls"
+    yamlls = "yamlls"
 };

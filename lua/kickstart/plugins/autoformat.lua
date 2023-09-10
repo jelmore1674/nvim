@@ -19,12 +19,14 @@ end
 local is_prettier_formatting = function(client_id)
   local file_types = require("custom.prettier")
   -- format files in prettier config with prettier
-  for _, prettier_client in ipairs(file_types) do
-    if client_id == prettier_client then
-      return true
-    end
-    return false
-  end
+  return file_types[client_id] ~= nil
+
+  -- for _, prettier_client in ipairs(file_types) do
+  --   if client_id ~= prettier_client then
+  --     return false
+  --   end
+  --   return true
+  -- end
 end
 
 return {
@@ -63,10 +65,12 @@ return {
         local client_id = args.data.client_id
         local client = vim.lsp.get_client_by_id(client_id)
         local bufnr = args.buf
+        local prettier = require("prettier")
 
         -- Only attach to clients that support document formatting
         if not client.server_capabilities.documentFormattingProvider then
-          if not is_prettier_formatting(client.id) then
+          if is_prettier_formatting(client.id) then
+            prettier.format()
             return
           end
         end
@@ -77,8 +81,6 @@ return {
           group = get_augroup(client),
           buffer = bufnr,
           callback = function()
-            local prettier = require("prettier")
-
             local cur_dir = vim.fn.getcwd()
             if file_exists(cur_dir .. '/dprint.json') then
               return
@@ -95,6 +97,12 @@ return {
             end
 
             if not is_prettier_formatting(client.name) then
+              if client.name == 'tailwindcss' then
+                return
+              end
+              if client.name == 'biome' then
+                return
+              end
               vim.lsp.buf.format {
                 async = false,
                 filter = function(c)
