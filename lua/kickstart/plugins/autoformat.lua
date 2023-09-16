@@ -30,8 +30,7 @@ local is_prettier_formatting = function(client_id)
 end
 
 return {
-  "chrisgrieser/nvim-lspconfig",
-  -- 'neovim/nvim-lspconfig',
+  'neovim/nvim-lspconfig',
   config = function()
     -- Switch for controlling whether you want autoformatting.
     --  Use :KickstartFormatToggle to toggle autoformatting on or off
