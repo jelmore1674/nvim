@@ -247,6 +247,7 @@ local servers = {
   tsserver = {
     capabilities = capabilities
   },
+  gopls = {},
   csharp_ls = {},
   -- biome = {
   --   capabilities = capabilities
