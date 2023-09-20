@@ -69,6 +69,9 @@ return {
             'williamboman/mason-lspconfig.nvim',
             'jose-elias-alvarez/null-ls.nvim',
             'MunifTanjim/prettier.nvim',
+            -- Go
+            'ray-x/go.nvim',
+            'ray-x/guihua.lua', -- recommended if need floating window support
             -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
@@ -89,14 +92,20 @@ return {
             --            'SirVer/ultisnips',
             -- Adds LSP completion capabilities
             'hrsh7th/cmp-nvim-lsp',
-
             -- Adds a number of user-friendly snippets
             'rafamadriz/friendly-snippets',
-
             -- Adds path auto complete
             'FelipeLema/cmp-async-path'
         },
     },
+
+    -- Integrated testing
+    'vim-test/vim-test',
+    -- Debugger
+    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+    'nvim-telescope/telescope-dap.nvim',
 
     -- Useful plugin to show you pending keybinds.
     { 'folke/which-key.nvim',          opts = {} },
