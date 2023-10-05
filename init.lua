@@ -183,6 +183,9 @@ parser_config.hypr = {
   },
   filetype = "hypr",
 }
+
+parser_config.bash.filetype_to_parsername = ""
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -275,7 +278,9 @@ local servers = {
   sqlls = {},
   taplo = {},
   yamlls = {},
-  -- omnisharp = {},
+  omnisharp = {
+
+  },
 }
 
 -- Setup neovim lua configuration
@@ -290,15 +295,68 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
+    if server_name == 'omnisharp' then
+      require 'lspconfig'.omnisharp.setup {
+        --     cmd = { "dotnet", "~/.local/share/nvim/mason/bin/omnisharp" },
+
+        -- Enables support for roslyn analyzers, code fixes and rulesets.
+        enable_roslyn_analyzers = true,
+
+        -- Specifies whether 'using' directives should be grouped and sorted during
+        -- document formatting.
+        organize_imports_on_format = true,
+
+        -- Enables support for showing unimported types and unimported extension
+        -- methods in completion lists. When committed, the appropriate using
+        -- directive will be added at the top of the current file. This option can
+        -- have a negative impact on initial completion responsiveness,
+        -- particularly for the first few completion sessions after opening a
+        -- solution.
+        enable_import_completion = true,
+      }
+    else
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+      }
+    end
   end,
 }
 
 require 'lspconfig'.biome.setup {}
+
+
+local highlight = {
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+  vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+  vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+  vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+  vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+  vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+  vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup {
+  indent = { highlight = highlight },
+  whitespace = {
+    highlight = highlight,
+  },
+  scope = { enabled = true },
+}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

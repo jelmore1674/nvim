@@ -89,7 +89,7 @@ return {
             -- Snippet Engine & its associated nvim-cmp source
             'L3MON4D3/LuaSnip',
             'saadparwaiz1/cmp_luasnip',
-            --            'SirVer/ultisnips',
+            -- '-SirVer/ultisnips',
             -- Adds LSP completion capabilities
             'hrsh7th/cmp-nvim-lsp',
             -- Adds a number of user-friendly snippets
@@ -98,6 +98,7 @@ return {
             'FelipeLema/cmp-async-path'
         },
     },
+    'Shougo/deoplete.nvim',
 
     -- Integrated testing
     'vim-test/vim-test',
@@ -136,11 +137,9 @@ return {
     {
         -- Add indentation guides even on blank lines
         'lukas-reineke/indent-blankline.nvim',
-        -- Enable `lukas-reineke/indent-blankline.nvim`
+        main = "ibl",
         -- See `:help indent_blankline.txt`
         opts = {
-            char = '┊',
-            show_trailing_blankline_indent = false,
         },
     },
 
