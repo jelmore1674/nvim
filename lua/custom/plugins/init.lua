@@ -38,6 +38,9 @@ return {
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
 
+    -- Surrounding Tags
+    'tpope/vim-surround',
+
     -- Icons
     'nvim-tree/nvim-web-devicons',
 
