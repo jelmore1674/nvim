@@ -7,7 +7,17 @@ return {
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
     'ThePrimeagen/git-worktree.nvim',
-    'sindrets/diffview.nvim',
+    {
+        'sindrets/diffview.nvim',
+        opts = {
+            enhanced_diff_hl = true,
+            view = {
+                merge_tool = {
+                    layout = 'diff3_mixed'
+                }
+            }
+        }
+    },
     {
         -- Adds git releated signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',

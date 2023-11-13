@@ -33,7 +33,7 @@ prettier.setup({
         quote_props = "as-needed",
         semi = true,
         single_attribute_per_line = false,
-        single_quote = true,
+        single_quote = false,
         tab_width = 2,
         trailing_comma = "none",
         use_tabs = false,
@@ -59,5 +59,5 @@ return {
     eslint = "tsserver",
     tsserver = "eslint",
     -- yaml lsp
-    yamlls = "yamlls"
+    --    yamlls = "yamlls"
 };
