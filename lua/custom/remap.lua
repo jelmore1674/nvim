@@ -29,6 +29,7 @@ keymap("n", "<C-q>", "<C-w><C-o>", opts)
 -- Open Diffview
 keymap("n", "<leader>do", ":DiffviewOpen<CR>", opts)
 keymap("n", "<leader>dc", ":DiffviewClose<CR>", opts)
+keymap("n", "<leader>df", ":DiffviewFile %<CR>", opts)
 
 -- Normal --
 -- Better window navigation
