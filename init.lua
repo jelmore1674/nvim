@@ -114,10 +114,6 @@ require('nvim-treesitter.configs').setup {
     enable_close_on_slash = true,
   },
 
-  context_commentstring = {
-    enable = true,
-  },
-
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
