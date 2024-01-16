@@ -51,3 +51,7 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 keymap("n", "<leader>tw", ":silent !tmux neww -d -n \"$(basename $(pwd))\"<CR>", opts)
+
+
+-- Sort lines
+keymap("v", "<leader>s", ":sort<CR>", opts)
