@@ -408,6 +408,9 @@ cmp.setup {
 -- hi NonText ctermbg=NONE
 -- hi Normal guibg=NONE
 -- ]]
+--
+
+require 'colorizer'.setup()
 
 require("hooks.worktree")
 require("custom")
