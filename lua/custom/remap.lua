@@ -55,3 +55,6 @@ keymap("n", "<leader>tw", ":silent !tmux neww -d -n \"$(basename $(pwd))\"<CR>",
 
 -- Sort lines
 keymap("v", "<leader>s", ":sort<CR>", opts)
+
+-- LazyGit
+keymap("n", "<leader>lg", ":silent LazyGit<CR>", opts)
