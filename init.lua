@@ -410,7 +410,10 @@ cmp.setup {
 -- ]]
 --
 
-require 'colorizer'.setup()
+require 'colorizer'.setup {
+  '*',                      -- Highlight all files, but customize some others.
+  css = { rgb_fn = true, }, -- Enable parsing rgb(...) functions in css.
+}
 
 require("hooks.worktree")
 require("custom")
