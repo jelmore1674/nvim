@@ -66,6 +66,7 @@ require('telescope').setup {
   },
 }
 
+
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -171,14 +172,14 @@ require('nvim-treesitter.configs').setup {
   },
 }
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.hypr = {
-  install_info = {
-    url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-    files = { "src/parser.c" },
-    branch = "master",
-  },
-  filetype = "hypr",
-}
+-- parser_config.hypr = {
+--   install_info = {
+--     url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+--     files = { "src/parser.c" },
+--     branch = "master",
+--   },
+--   filetype = "hypr",
+-- }
 
 parser_config.bash.filetype_to_parsername = ""
 
@@ -273,9 +274,16 @@ local servers = {
   prismals = {},
   sqlls = {},
   taplo = {},
-  yamlls = {},
   omnisharp = {
 
+  },
+  kotlin_language_server = {},
+  stylelint_lsp = {
+    stylelintplus = {
+      -- see available options in stylelint-lsp documentation
+      -- autoFixOnSave = true,
+      -- autoFixOnFormat = true
+    },
   },
 }
 
@@ -399,7 +407,16 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'async_path' }
+    { name = 'async_path' },
+    {
+      name = 'spell',
+      option = {
+        keep_all_entries = false,
+        enable_in_context = function()
+          return require('cmp.config.context').in_treesitter_capture('spell')
+        end,
+      },
+    },
   },
 }
 

@@ -52,6 +52,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.wrap = true
 
 vim.opt.smartindent = true
 
@@ -63,3 +64,6 @@ vim.opt.scrolloff = 12
 vim.opt.isfname:append("@-@")
 
 vim.opt.colorcolumn = "80"
+
+-- vim.opt.spelllang = 'en_us'
+-- vim.opt.spell = true

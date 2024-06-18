@@ -64,6 +64,10 @@ return {
     -- Icons
     'nvim-tree/nvim-web-devicons',
 
+    -- cspell
+    'davidmh/cspell.nvim',
+
+
     -- Markdown Preview
     {
         "iamcco/markdown-preview.nvim",
@@ -90,7 +94,7 @@ return {
             -- Automatically install LSPs to stdpath for neovim
             { 'williamboman/mason.nvim', config = true },
             'williamboman/mason-lspconfig.nvim',
-            'jose-elias-alvarez/null-ls.nvim',
+            'nvimtools/none-ls.nvim',
             'MunifTanjim/prettier.nvim',
             -- Go
             'ray-x/go.nvim',
@@ -214,8 +218,12 @@ return {
 
     -- Color Highlight
     'norcalli/nvim-colorizer.lua',
+
     'SaschaMendel/vim-quicktype',
 
     -- vim-wiki
-    'vimwiki/vimwiki'
+    'vimwiki/vimwiki',
+
+    -- Kotlin
+    'udalov/kotlin-vim'
 }
