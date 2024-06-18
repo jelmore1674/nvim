@@ -52,8 +52,13 @@ return {
             require("telescope").load_extension("lazygit")
         end,
     },
+
     -- buffer mangager
-    'theprimeagen/harpoon',
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    },
 
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
