@@ -213,5 +213,9 @@ return {
     'ThePrimeagen/vim-be-good',
 
     -- Color Highlight
-    'norcalli/nvim-colorizer.lua'
+    'norcalli/nvim-colorizer.lua',
+    'SaschaMendel/vim-quicktype',
+
+    -- vim-wiki
+    'vimwiki/vimwiki'
 }
