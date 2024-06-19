@@ -1,0 +1,50 @@
+local function file_exists(name)
+  local f = io.open(name, 'r')
+  if f ~= nil then
+    return true
+  end
+  return false
+end
+
+return {
+  'mfussenegger/nvim-lint',
+  event = { 'BufReadPre', 'BufNewFile' },
+  config = function()
+    local lint = require 'lint'
+
+    lint.linters_by_ft = {
+      javascript = { 'eslint_d' },
+      typescript = { 'eslint_d' },
+      javascriptreact = { 'eslint_d' },
+      typescriptreact = { 'biomejs', 'eslint_d' },
+      svelte = { 'eslint_d' },
+      python = { 'pylint' },
+    }
+
+    local cur_dir = vim.fn.getcwd()
+    if file_exists(cur_dir .. '/biome.json') then
+      lint.linters_by_ft = {
+        javascript = { 'biomejs' },
+        typescript = { 'biomejs' },
+        javascriptreact = { 'biomejs' },
+        typescriptreact = { 'eslint' },
+        svelte = { 'eslint_d' },
+        python = { 'pylint' },
+      }
+      return
+    end
+
+    local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+      group = lint_augroup,
+      callback = function()
+        lint.try_lint()
+      end,
+    })
+
+    vim.keymap.set('n', '<leader>l', function()
+      lint.try_lint()
+    end, { desc = 'Trigger linting for current file' })
+  end,
+}

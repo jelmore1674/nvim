@@ -1,11 +1,4 @@
 return {
-    -- buffer mangager
-    {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = { "nvim-lua/plenary.nvim" }
-    },
-
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
 
