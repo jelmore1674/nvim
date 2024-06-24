@@ -19,7 +19,11 @@ return {
       typescriptreact = { 'biomejs', 'eslint_d' },
       svelte = { 'eslint_d' },
       python = { 'pylint' },
+      -- Use the "*" filetype to run linters on all filetypes.
+      ['*'] = { 'cspell', 'codespell' },
     }
+
+    local tesf = 'testf'
 
     local cur_dir = vim.fn.getcwd()
     if file_exists(cur_dir .. '/biome.json') then
@@ -31,7 +35,6 @@ return {
         svelte = { 'eslint_d' },
         python = { 'pylint' },
       }
-      return
     end
 
     local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -43,7 +46,7 @@ return {
       end,
     })
 
-    vim.keymap.set('n', '<leader>l', function()
+    vim.keymap.set('n', '<leader>lf', function()
       lint.try_lint()
     end, { desc = 'Trigger linting for current file' })
   end,

@@ -1,3 +1,11 @@
+local function prettier_or_dprint(bufnr)
+  if require('conform').get_formatter_info('dprint', bufnr).available then
+    return { 'dprint' }
+  else
+    return { 'prettier' }
+  end
+end
+
 return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
@@ -5,26 +13,37 @@ return {
     local conform = require 'conform'
 
     conform.setup {
-      formatters_by_ft = {
-        javascript = { { 'prettierd', 'dprint' } },
-        typescript = { { 'prettierd', 'dprint' } },
-        javascriptreact = { { 'prettierd', 'dprint' }, 'stylelint' },
-        typescriptreact = { { 'prettierd' }, 'stylelint' },
-        svelte = { 'prettierd' },
-        css = { 'prettierd' },
-        html = { 'prettierd' },
-        json = { 'prettierd' },
-        yaml = { 'prettierd' },
-        markdown = { 'prettierd' },
-        graphql = { 'prettierd' },
-        liquid = { 'prettierd' },
-        lua = { 'stylua' },
-        python = { 'isort', 'black' },
-      },
+      javascript = { 'dprint', { 'prettierd', 'prettier' } },
+      typescript = { 'dprint', { 'prettierd', 'prettier' } },
+      javascriptreact = { 'dprint', { 'prettierd', 'prettier' } },
+      typescriptreact = { 'dprint', { 'prettierd', 'prettier' } },
+      svelte = { { 'dprint', 'prettier' } },
+      css = { { 'dprint', 'prettier' } },
+      html = { { 'dprint', 'prettier' } },
+      json = { { 'dprint', 'prettier' } },
+      yaml = { { 'dprint', 'prettier' } },
+      markdown = { { 'dprint', 'prettier' } },
+      graphql = { { 'dprint', 'prettier' } },
+      liquid = { { 'dprint', 'prettier' } },
+      lua = { 'stylua' },
+      python = { 'isort', 'black' },
+      -- Use the "*" filetype to run formatters on all filetypes.
+      ['*'] = { 'codespell' },
+      -- Use the "_" filetype to run formatters on filetypes that don't
+      -- have other formatters configured.
+      ['_'] = { 'trim_whitespace' },
       format_on_save = {
         lsp_fallback = true,
         async = false,
         timeout_ms = 1000,
+      },
+      formatters = {
+        dprint = {
+          condition = function(ctx)
+            print(ctx.filename)
+            return vim.fs.find({ 'dprint.json' }, { path = ctx.filename, upward = true })[1]
+          end,
+        },
       },
     }
 

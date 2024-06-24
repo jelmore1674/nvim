@@ -22,7 +22,7 @@ vim.o.breakindent = true
 -- Save undo history
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
@@ -43,7 +43,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.opt.guicursor = ""
+vim.opt.guicursor = ''
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -61,9 +61,9 @@ vim.opt.wrap = false
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 12
-vim.opt.isfname:append("@-@")
+vim.opt.isfname:append '@-@'
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = '80'
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -71,6 +71,5 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-
--- vim.opt.spelllang = 'en_us'
--- vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
