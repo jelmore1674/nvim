@@ -14,7 +14,7 @@ return {
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     -- { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
-    'nvimtools/none-ls.nvim',
+    -- 'nvimtools/none-ls.nvim',
     -- -- Go
     -- 'ray-x/go.nvim',
     -- 'ray-x/guihua.lua', -- recommended if need floating window support
@@ -27,7 +27,8 @@ return {
   config = function()
     local cmp = require 'cmp'
     local cmp_lsp = require 'cmp_nvim_lsp'
-    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(),
+      cmp_lsp.default_capabilities())
     local luasnip = require 'luasnip'
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup {}
@@ -57,18 +58,10 @@ return {
           }
         end,
 
+
         ['stylelint_lsp'] = function()
           local lspconfig = require 'lspconfig'
-          lspconfig.stylelint_lsp.setup {
-            capabilities = capabilities,
-            settings = {
-              stylelintplus = {
-                -- see available options in stylelint-lsp documentation
-                autoFixOnSave = false,
-                autoFixOnFormat = false,
-              },
-            },
-          }
+          lspconfig.stylelint_lsp.setup {}
         end,
 
         ['dprint'] = function()
@@ -141,6 +134,7 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
+        { name = 'async_path' }
       }, {
         { name = 'buffer' },
       }),
