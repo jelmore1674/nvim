@@ -6,7 +6,7 @@ return {
     null_ls.setup {
       sources = {
         null_ls.builtins.completion.spell,
-        require 'none-ls.diagnostics.eslint', -- requires none-ls-extras.nvim
+        require 'none-ls.diagnostics.eslint',  -- requires none-ls-extras.nvim
         null_ls.builtins.code_actions.refactoring,
         null_ls.builtins.completion.luasnip,
         null_ls.builtins.diagnostics.actionlint,
@@ -17,6 +17,7 @@ return {
         null_ls.builtins.diagnostics.textlint,
         null_ls.builtins.diagnostics.todo_comments,
         null_ls.builtins.diagnostics.zsh,
+        -- null_ls.builtins.formatting.biome,
         -- null_ls.builtins.formatting.markdownlint,
         -- null_ls.builtins.formatting.pg_format,
         -- null_ls.builtins.formatting.prettier,

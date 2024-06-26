@@ -130,19 +130,11 @@ return {
     --  Add any additional override configuration in the following tables. They will be passed to
     --  the `settings` field of the server config. You must look up that documentation yourself.
     local servers = {
-      rust_analyzer = {
-        capabilities = capabilities,
-      },
-      tsserver = {
-        capabilities = capabilities,
-      },
+      rust_analyzer = { capabilities = capabilities },
       gopls = {},
-      biome = {
-        capabilities = capabilities,
-      },
-      eslint = {
-        capabilities = capabilities,
-      },
+      tsserver = {},
+      biome = {},
+      eslint = { capabilities = capabilities },
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
@@ -179,32 +171,11 @@ return {
 
     mason_lspconfig.setup_handlers {
       function(server_name)
-        if server_name == 'omnisharp' then
-          require('lspconfig').omnisharp.setup {
-            --     cmd = { "dotnet", "~/.local/share/nvim/mason/bin/omnisharp" },
-
-            -- Enables support for roslyn analyzers, code fixes and rulesets.
-            enable_roslyn_analyzers = true,
-
-            -- Specifies whether 'using' directives should be grouped and sorted during
-            -- document formatting.
-            organize_imports_on_format = true,
-
-            -- Enables support for showing unimported types and unimported extension
-            -- methods in completion lists. When committed, the appropriate using
-            -- directive will be added at the top of the current file. This option can
-            -- have a negative impact on initial completion responsiveness,
-            -- particularly for the first few completion sessions after opening a
-            -- solution.
-            enable_import_completion = true,
-          }
-        else
-          require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name],
-          }
-        end
+        require('lspconfig')[server_name].setup {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = servers[server_name],
+        }
       end,
     }
 
