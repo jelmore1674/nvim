@@ -1,3 +1,4 @@
+require 'justin.remap'
 require 'justin.set'
 require 'justin.lazy_init'
 
@@ -46,7 +47,7 @@ autocmd('LspAttach', {
     local opts = { buffer = e.buf }
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(e.buf, 'Format', function(_)
-      vim.lsp.buf.format()
+      require('conform').format { bufnr = e.buf }
     end, { desc = 'Format current buffer with LSP' })
 
     --  This function gets run when an LSP connects to a particular buffer.

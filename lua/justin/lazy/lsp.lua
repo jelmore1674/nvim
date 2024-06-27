@@ -5,13 +5,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     -- Completion
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
     'j-hui/fidget.nvim',
 
     -- -- Go
@@ -24,61 +18,9 @@ return {
   },
 
   config = function()
-    local cmp = require 'cmp'
-    local cmp_lsp = require 'cmp_nvim_lsp'
-    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(),
-      cmp_lsp.default_capabilities())
-    local luasnip = require 'luasnip'
-
-    require('luasnip.loaders.from_vscode').lazy_load()
-    luasnip.config.setup {}
-
-    cmp.setup {
-      snippet = {
-        expand = function(args)
-          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        end,
-      },
-      mapping = cmp.mapping.preset.insert {
-        ['<C-j>'] = cmp.mapping.select_next_item(),
-        ['<C-k>'] = cmp.mapping.select_prev_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-u>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete {},
-        ['<CR>'] = cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        },
-        ['<Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-      },
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' }, -- For luasnip users.
-        { name = 'async_path' },
-      }, {
-        { name = 'buffer' },
-      }),
-    }
-
+    -- Setup neovim lua configuration
+    require('neodev').setup()
     require('fidget').setup {}
-    require('mason').setup()
 
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
@@ -118,23 +60,21 @@ return {
       nmap('<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end, '[W]orkspace [L]ist Folders')
-
-      -- Create a command `:Format` local to the LSP buffer
-      vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
-      end, { desc = 'Format current buffer with LSP' })
     end
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
     --  Add any additional override configuration in the following tables. They will be passed to
     --  the `settings` field of the server config. You must look up that documentation yourself.
+    local cmp_lsp = require 'cmp_nvim_lsp'
+    local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+
     local servers = {
-      rust_analyzer = { capabilities = capabilities },
+      rust_analyzer = {},
       gopls = {},
       tsserver = {},
       biome = {},
-      eslint = { capabilities = capabilities },
+      eslint = {},
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
@@ -145,7 +85,6 @@ return {
         provideFormatter = false,
       },
       graphql = {
-        capabilities = capabilities,
         root_dir = function()
           return vim.loop.cwd()
         end,
@@ -153,14 +92,14 @@ return {
       stylelint_lsp = {
         stylelintplus = {
           -- see available options in stylelint-lsp documentation
-          -- autoFixOnSave = true,
-          -- autoFixOnFormat = true
+          autoFixOnSave = false,
+          autoFixOnFormat = true,
         },
       },
     }
 
-    -- Setup neovim lua configuration
-    require('neodev').setup()
+    -- Mason
+    require('mason').setup {}
 
     -- Ensure the servers above are installed
     local mason_lspconfig = require 'mason-lspconfig'
