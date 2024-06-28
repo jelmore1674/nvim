@@ -6,12 +6,18 @@ return {
   dependencies = {
     'hrsh7th/cmp-buffer', -- source text in current buffer
     'hrsh7th/cmp-path', -- source file system paths
+    'FelipeLema/cmp-async-path', -- Adds path auto complete
     'hrsh7th/cmp-cmdline', -- source cmd line
     'hrsh7th/cmp-calc', -- evaluating mathematical expressions
     'hrsh7th/cmp-emoji', -- emojis
     'hrsh7th/cmp-nvim-lua', -- nvim lua api
-    'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
+
+    {
+      'L3MON4D3/LuaSnip',
+      -- Adds a number of user-friendly snippets
+      dependencies = { 'rafamadriz/friendly-snippets' },
+    },
 
     { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' }, -- git completion
 

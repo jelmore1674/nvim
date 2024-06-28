@@ -12,24 +12,28 @@ return {
   config = function()
     local conform = require 'conform'
 
+    vim.keymap.set('n', '<leader>f', conform.format, { desc = '[F]ormat' })
+
     conform.setup {
       formatters_by_ft = {
-        javascript = { 'dprint', { 'prettierd', 'prettier' } },
-        typescript = { 'dprint', { 'prettierd', 'prettier' } },
-        javascriptreact = { 'dprint', { 'prettierd', 'prettier' } },
-        typescriptreact = { 'dprint', { 'prettierd', 'prettier' } },
-        svelte = { { 'dprint', 'prettier' } },
-        css = { { 'dprint', 'prettier' } },
-        html = { { 'dprint', 'prettier' } },
-        json = { { 'dprint', 'prettier' } },
-        yaml = { { 'dprint', 'prettier' } },
-        markdown = { { 'dprint', 'prettier' } },
-        graphql = { { 'dprint', 'prettier' } },
-        liquid = { { 'dprint', 'prettier' } },
+        javascript = { 'dprint', 'prettier' },
+        typescript = { 'dprint', 'prettier' },
+        javascriptreact = { 'dprint', 'prettier' },
+        typescriptreact = { 'dprint', 'prettier' },
+        svelte = { 'dprint', 'prettier' },
+        astro = { 'dprint', 'prettierd' },
+        css = { 'dprint', 'prettier' },
+        html = { 'dprint', 'prettier' },
+        json = { 'dprint', 'prettier' },
+        yaml = { 'dprint', 'prettier' },
+        markdown = { 'dprint', 'prettier' },
+        graphql = { 'dprint', 'prettier' },
+        liquid = { 'dprint', 'prettier' },
         lua = { 'stylua' },
         python = { 'isort', 'black' },
+        sh = { 'shfmt' },
         -- Use the "*" filetype to run formatters on all filetypes.
-        -- ['*'] = { 'codespell' },
+        ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
         ['_'] = { 'trim_whitespace' },
@@ -41,15 +45,17 @@ return {
       },
       formatters = {
         prettierd = {
-          condition = function()
-            return false
-          end,
+          args = {
+            '--config-precedence prefer-file',
+            '--single-quote',
+            '--trailing-comma none',
+            '--vue-indent-script-and-style',
+            '--write',
+            '$FILENAME',
+            '--plugin=prettier-plugin-astro',
+          },
         },
-        prettier = {
-          condition = function()
-            return false
-          end,
-        },
+
         dprint = {
           condition = function(ctx)
             return vim.fs.find({ 'dprint.json' }, { path = ctx.filename, upward = true })[1]
@@ -57,6 +63,16 @@ return {
         },
       },
       log_level = vim.log.levels.DEBUG,
+    }
+
+    conform.formatters.shfmt = {
+      prepend_args = { '-i', '2' },
+      -- The base args are { "-filename", "$FILENAME" } so the final args will be
+      -- { "-i", "2", "-filename", "$FILENAME" }
+    }
+
+    conform.formatters.prettier = {
+      append_args = function(self, ctx) end,
     }
 
     vim.keymap.set({ 'n', 'v' }, '<leader>mp', function()
