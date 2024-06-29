@@ -3,7 +3,6 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-
     -- Completion
     'hrsh7th/nvim-cmp',
     'j-hui/fidget.nvim',
@@ -14,7 +13,6 @@ return {
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
-    '42wim/vim-shfmt',
   },
 
   config = function()
@@ -96,6 +94,7 @@ return {
           autoFixOnFormat = true,
         },
       },
+      bashls = {},
     }
 
     -- Mason
@@ -118,16 +117,16 @@ return {
       end,
     }
 
-    vim.diagnostic.config {
-      -- update_in_insert = true,
-      float = {
-        focusable = false,
-        style = 'minimal',
-        border = 'rounded',
-        source = true,
-        header = '',
-        prefix = '',
-      },
-    }
+    -- vim.diagnostic.config {
+    --   -- update_in_insert = true,
+    --   float = {
+    --     focusable = false,
+    --     style = 'minimal',
+    --     border = 'rounded',
+    --     source = true,
+    --     header = '',
+    --     prefix = '',
+    --   },
+    -- }
   end,
 }
