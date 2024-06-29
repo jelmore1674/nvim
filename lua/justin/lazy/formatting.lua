@@ -55,6 +55,11 @@ return {
             '--plugin=prettier-plugin-astro',
           },
         },
+        shfmt = {
+          prepend_args = { '-i', '2' },
+          -- The base args are { "-filename", "$FILENAME" } so the final args will be
+          -- { "-i", "2", "-filename", "$FILENAME" }
+        },
 
         dprint = {
           condition = function(ctx)
@@ -63,16 +68,6 @@ return {
         },
       },
       log_level = vim.log.levels.DEBUG,
-    }
-
-    conform.formatters.shfmt = {
-      prepend_args = { '-i', '2' },
-      -- The base args are { "-filename", "$FILENAME" } so the final args will be
-      -- { "-i", "2", "-filename", "$FILENAME" }
-    }
-
-    conform.formatters.prettier = {
-      append_args = function(self, ctx) end,
     }
 
     vim.keymap.set({ 'n', 'v' }, '<leader>mp', function()
