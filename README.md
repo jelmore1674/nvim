@@ -2,7 +2,7 @@
 
 This is my personal neovim config.
 
-### Prequisites
+### Prerequisites
 
 -   [neovim](https://github.com/neovim/neovim#install-from-package)
 -   [fzf](https://github.com/junegunn/fzf#installation)
@@ -16,3 +16,4 @@ This is my personal neovim config.
 2. Clone this repo: `git clone https://github.com/jelmore1674/nvim.git ~/.config/nvim`
 3. Change directory into the config. `cd ~/.config/nvim` then run `nvim .`
 4. Wait for all of the packages to install and bam, neovim is working.
+
