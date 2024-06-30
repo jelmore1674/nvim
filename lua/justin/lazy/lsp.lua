@@ -68,32 +68,98 @@ return {
     local capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     local servers = {
-      rust_analyzer = {},
-      gopls = {},
-      tsserver = {},
+      -- Web
+      -- javascript/typescript
       biome = {},
       eslint = {},
+      tsserver = {},
+      astro = {
+        provideFormatter = false,
+      },
+
+      dprint = {
+        filetypes = {
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+          'json',
+          'jsonc',
+          'markdown',
+          'python',
+          'toml',
+          'rust',
+          'roslyn',
+          'astro',
+        },
+      },
+
+      html = {
+        provideFormatter = false,
+      },
+      emmet_language_server = {},
+
+      -- css
+      cssls = {},
+      cssmodules_ls = {},
+      stylelint_lsp = {
+        stylelintplus = {
+          -- see available options in stylelint-lsp documentation
+          autoFixOnSave = true,
+          autoFixOnFormat = true,
+        },
+      },
+      tailwindcss = {},
+
+      -- Graphql
+      graphql = {
+        root_dir = function()
+          return vim.loop.cwd()
+        end,
+      },
+
+      -- Dotnet
+      -- csharp_ls = {},
+      -- omnisharp = {}
+
+      -- Docker
+      dockerls = {},
+      docker_compose_language_service = {},
+
+      -- Android
+      gradle_ls = {},
+      -- java_language_server = {},
+      kotlin_language_server = {},
+
+      -- YAML
+      azure_pipelines_ls = {},
+      yamlls = {},
+
+      -- Markdown
+      marksman = {},
+
+      -- nginx
+      nginx_language_server = {},
+
+      -- SQL
+      -- postgres_lsp = {},
+      sqlls = {},
+
+      -- rust
+      rust_analyzer = {},
+
+      -- go
+      gopls = {},
+
+      -- lua
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
         },
       },
-      html = {
-        provideFormatter = false,
-      },
-      graphql = {
-        root_dir = function()
-          return vim.loop.cwd()
-        end,
-      },
-      stylelint_lsp = {
-        stylelintplus = {
-          -- see available options in stylelint-lsp documentation
-          autoFixOnSave = false,
-          autoFixOnFormat = true,
-        },
-      },
+
+      -- bash
       bashls = {},
     }
 
@@ -113,20 +179,18 @@ return {
           capabilities = capabilities,
           on_attach = on_attach,
           settings = servers[server_name],
+          filetypes = (servers[server_name] or {}).filetypes,
         }
       end,
     }
 
-    -- vim.diagnostic.config {
-    --   -- update_in_insert = true,
-    --   float = {
-    --     focusable = false,
-    --     style = 'minimal',
-    --     border = 'rounded',
-    --     source = true,
-    --     header = '',
-    --     prefix = '',
-    --   },
-    -- }
+    local isLspDiagnosticsVisible = true
+    vim.keymap.set('n', '<leader>lx', function()
+      isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+      vim.diagnostic.config {
+        virtual_text = isLspDiagnosticsVisible,
+        underline = isLspDiagnosticsVisible,
+      }
+    end)
   end,
 }

@@ -1,36 +1,26 @@
-local function prettier_or_dprint(bufnr)
-  if require('conform').get_formatter_info('dprint', bufnr).available then
-    return { 'dprint' }
-  else
-    return { 'prettier' }
-  end
-end
-
 return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local conform = require 'conform'
 
-    vim.keymap.set('n', '<leader>f', conform.format, { desc = '[F]ormat' })
+    vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
 
     conform.setup {
       formatters_by_ft = {
-        javascript = { 'dprint', 'prettier' },
-        typescript = { 'dprint', 'prettier' },
-        javascriptreact = { 'dprint', 'prettier' },
-        typescriptreact = { 'dprint', 'prettier' },
-        svelte = { 'dprint', 'prettier' },
-        astro = { 'dprint', 'prettierd' },
-        css = { 'dprint', 'prettier' },
-        html = { 'dprint', 'prettier' },
+        javascript = { { 'dprint', 'prettier' } },
+        typescript = { { 'dprint', 'prettier' } },
+        javascriptreact = { { 'dprint', 'prettier' } },
+        typescriptreact = { { 'dprint', 'prettier' } },
+        svelte = { { 'dprint', 'prettier' } },
+        astro = { 'biome', 'dprint' },
+        css = { { 'dprint', 'prettier' } },
+        html = { { 'dprint', 'prettier' } },
         json = { 'dprint', 'prettier' },
         yaml = { 'dprint', 'prettier' },
-        markdown = { 'dprint', 'prettier' },
+        markdown = { 'mdformat', { 'dprint', 'prettier' } },
         graphql = { 'dprint', 'prettier' },
-        liquid = { 'dprint', 'prettier' },
         lua = { 'stylua' },
-        python = { 'isort', 'black' },
         sh = { 'shfmt' },
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
@@ -44,17 +34,16 @@ return {
         timeout_ms = 1000,
       },
       formatters = {
-        prettierd = {
-          args = {
-            '--config-precedence prefer-file',
-            '--single-quote',
-            '--trailing-comma none',
-            '--vue-indent-script-and-style',
-            '--write',
-            '$FILENAME',
-            '--plugin=prettier-plugin-astro',
-          },
-        },
+        -- prettier = {
+        --   args = {
+        --     '--config-precedence=prefer-file',
+        --     '--single-quote',
+        --     '--trailing-comma none',
+        --     '--vue-indent-script-and-style',
+        --     '--write',
+        --     '$FILENAME',
+        --   },
+        -- },
         shfmt = {
           prepend_args = { '-i', '2' },
           -- The base args are { "-filename", "$FILENAME" } so the final args will be
@@ -63,6 +52,7 @@ return {
 
         dprint = {
           condition = function(ctx)
+            ---@diagnostic disable-next-line: return-type-mismatch, undefined-field
             return vim.fs.find({ 'dprint.json' }, { path = ctx.filename, upward = true })[1]
           end,
         },
