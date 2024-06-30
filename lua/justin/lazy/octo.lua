@@ -7,6 +7,6 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    require('octo').setup()
+    require('octo').setup { enable_builtin = true }
   end,
 }
