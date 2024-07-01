@@ -10,3 +10,6 @@ keymap
 LSP
 keymaps
 completeions/!
+pnpm
+env
+dev
