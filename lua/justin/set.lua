@@ -22,7 +22,7 @@ vim.o.breakindent = true
 -- Save undo history
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
@@ -61,7 +61,7 @@ vim.opt.wrap = false
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 12
-vim.opt.isfname:append '@-@'
+vim.opt.isfname:append('@-@')
 
 vim.opt.colorcolumn = '80'
 
@@ -73,3 +73,20 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
+
+vim.filetype.add({
+  extension = {
+    conf = 'conf',
+    env = 'dotenv',
+    tiltfile = 'tiltfile',
+    Tiltfile = 'tiltfile',
+  },
+  filename = {
+    ['.env'] = 'dotenv',
+    ['tsconfig.json'] = 'jsonc',
+    ['.yamlfmt'] = 'yaml',
+  },
+  pattern = {
+    ['%.env%.[%w_.-]+'] = 'dotenv',
+  },
+})

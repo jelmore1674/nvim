@@ -4,7 +4,7 @@ return {
     'bluz71/vim-moonfly-colors',
     name = 'moonfly',
     config = function()
-      vim.cmd [[colorscheme moonfly]]
+      vim.cmd([[colorscheme moonfly]])
     end,
   },
 
@@ -37,7 +37,7 @@ return {
         'RainbowCyan',
       }
 
-      local hooks = require 'ibl.hooks'
+      local hooks = require('ibl.hooks')
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -50,13 +50,13 @@ return {
         vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
       end)
 
-      require('ibl').setup {
+      require('ibl').setup({
         indent = { highlight = highlight },
         whitespace = {
           highlight = highlight,
         },
         scope = { enabled = true },
-      }
+      })
     end,
   },
 
@@ -64,10 +64,10 @@ return {
     -- Color Highlight
     'norcalli/nvim-colorizer.lua',
     config = function()
-      require('colorizer').setup {
+      require('colorizer').setup({
         '*', -- Highlight all files, but customize some others.
         css = { rgb_fn = true }, -- Enable parsing rgb(...) functions in css.
-      }
+      })
     end,
   },
 }

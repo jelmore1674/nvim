@@ -10,9 +10,6 @@ return {
 
   'SaschaMendel/vim-quicktype',
 
-  -- vim-wiki
-  'vimwiki/vimwiki',
-
   -- deoplete
   'Shougo/deoplete.nvim',
 
@@ -42,10 +39,7 @@ return {
   {
     'windwp/nvim-autopairs',
     config = function()
-      require('nvim-autopairs').setup {}
+      require('nvim-autopairs').setup({})
     end,
   },
-
-  -- "gc" to comment visual regions/lines
-  'numToStr/Comment.nvim',
 }

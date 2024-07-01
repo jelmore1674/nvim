@@ -1,6 +1,6 @@
-require 'justin.remap'
-require 'justin.set'
-require 'justin.lazy_init'
+require('justin.remap')
+require('justin.set')
+require('justin.lazy_init')
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -18,20 +18,20 @@ function R(name)
   require('plenary.reload').reload_module(name)
 end
 
-vim.filetype.add {
+vim.filetype.add({
   extension = {
     templ = 'templ',
   },
-}
+})
 
 autocmd('TextYankPost', {
   group = yank_group,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank {
+    vim.highlight.on_yank({
       higroup = 'IncSearch',
       timeout = 40,
-    }
+    })
   end,
 })
 
@@ -47,7 +47,7 @@ autocmd('LspAttach', {
     local opts = { buffer = e.buf }
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(e.buf, 'Format', function(_)
-      require('conform').format { bufnr = e.buf }
+      require('conform').format({ bufnr = e.buf })
     end, { desc = 'Format current buffer with LSP' })
 
     --  This function gets run when an LSP connects to a particular buffer.

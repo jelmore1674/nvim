@@ -7,6 +7,7 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    require('octo').setup { enable_builtin = true }
+    require('octo').setup({ enable_builtin = true })
+    -- TODO: Configure Keybinds
   end,
 }

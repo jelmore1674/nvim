@@ -1,11 +1,11 @@
 return {
-  -- buffer mangager
+  -- buffer manager
   'ThePrimeagen/harpoon',
   branch = 'harpoon2',
   dependencies = { 'nvim-lua/plenary.nvim' },
 
   config = function()
-    local harpoon = require 'harpoon'
+    local harpoon = require('harpoon')
 
     -- REQUIRED
     harpoon:setup()
@@ -32,10 +32,10 @@ return {
     end)
 
     -- Toggle previous & next buffers stored within Harpoon list
-    vim.keymap.set('n', '<C-d-p>', function()
+    vim.keymap.set('n', '<leader>hp', function()
       harpoon:list():prev()
     end)
-    vim.keymap.set('n', '<C-d-n>', function()
+    vim.keymap.set('n', '<leader>hn', function()
       harpoon:list():next()
     end)
   end,

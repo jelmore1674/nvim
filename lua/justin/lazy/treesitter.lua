@@ -11,21 +11,26 @@ return {
     },
     'windwp/nvim-ts-autotag',
     'JoosepAlviste/nvim-ts-context-commentstring',
-    'luckasRanarison/tree-sitter-hypr',
   },
   config = function()
     ---@diagnostic disable-next-line: missing-fields
-    require('nvim-treesitter.configs').setup {
+    require('nvim-treesitter.configs').setup({
       -- A list of parser names, or "all"
       ensure_installed = {
         'vimdoc',
         'javascript',
         'typescript',
-        'c',
         'lua',
         'rust',
         'jsdoc',
         'bash',
+        'astro',
+        'c_sharp',
+        'css',
+        'dockerfile',
+        'kotlin',
+        'java',
+        'yaml',
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -49,7 +54,7 @@ return {
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = { 'markdown' },
       },
-    }
+    })
 
     local treesitter_parser_config = require('nvim-treesitter.parsers').get_parser_configs()
     ---@diagnostic disable-next-line: inject-field

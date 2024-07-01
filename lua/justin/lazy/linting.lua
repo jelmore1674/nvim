@@ -10,15 +10,16 @@ return {
   'mfussenegger/nvim-lint',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local lint = require 'lint'
+    local lint = require('lint')
 
     lint.linters_by_ft = {
       javascript = { 'eslint_d' },
       typescript = { 'eslint_d' },
       javascriptreact = { 'eslint_d' },
-      typescriptreact = { 'biomejs', 'eslint_d' },
-      svelte = { 'eslint_d' },
-      python = { 'pylint' },
+      typescriptreact = { 'eslint_d' },
+      astro = { 'eslint_d' },
+      css = { 'stylelint' },
+      markdown = { 'markdownlint' },
       -- Use the "*" filetype to run linters on all filetypes.
       ['*'] = { 'cspell', 'codespell' },
     }
@@ -27,10 +28,10 @@ return {
     if file_exists(cur_dir .. '/biome.json') then
       lint.linters_by_ft = {
         javascript = { 'biomejs' },
+        typescript = { 'biomejs' },
         javascriptreact = { 'biomejs' },
-        typescriptreact = { 'eslint' },
-        svelte = { 'eslint_d' },
-        python = { 'pylint' },
+        typescriptreact = { 'biomejs' },
+        astro = { 'biomejs' },
       }
     end
 
@@ -47,7 +48,7 @@ return {
       lint.try_lint()
     end, { desc = 'Trigger linting for current file' })
 
-    vim.diagnostic.config {
+    vim.diagnostic.config({
       -- update_in_insert = true,
       float = {
         focusable = false,
@@ -57,6 +58,6 @@ return {
         header = '',
         prefix = '',
       },
-    }
+    })
   end,
 }

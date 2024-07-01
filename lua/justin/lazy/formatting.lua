@@ -2,11 +2,11 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local conform = require 'conform'
+    local conform = require('conform')
 
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
 
-    conform.setup {
+    conform.setup({
       formatters_by_ft = {
         javascript = { { 'dprint', 'prettier' } },
         typescript = { { 'dprint', 'prettier' } },
@@ -18,7 +18,7 @@ return {
         html = { { 'dprint', 'prettier' } },
         json = { 'dprint', 'prettier' },
         yaml = { 'dprint', 'prettier' },
-        markdown = { 'mdformat', { 'dprint', 'prettier' } },
+        markdown = { 'prettier' },
         graphql = { 'dprint', 'prettier' },
         lua = { 'stylua' },
         sh = { 'shfmt' },
@@ -58,14 +58,14 @@ return {
         },
       },
       log_level = vim.log.levels.DEBUG,
-    }
+    })
 
     vim.keymap.set({ 'n', 'v' }, '<leader>mp', function()
-      conform.format {
+      conform.format({
         lsp_fallback = true,
         async = false,
         timeout_ms = 1000,
-      }
+      })
     end, { desc = 'Format file or range (in visual mode)' })
   end,
 }

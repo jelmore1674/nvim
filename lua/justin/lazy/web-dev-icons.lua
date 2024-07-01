@@ -1,8 +1,8 @@
 return {
   'nvim-tree/nvim-web-devicons',
   config = function()
-    require('nvim-web-devicons').setup {
-      -- your personnal icons can go here (to override)
+    require('nvim-web-devicons').setup({
+      -- your personal icons can go here (to override)
       -- you can specify color or cterm_color instead of specifying both of them
       -- DevIcon will be appended to `name`
       override = {
@@ -17,7 +17,7 @@ return {
       -- if set to false all icons will have the default icon's color
       color_icons = true,
       -- globally enable default icons (default to false)
-      -- will get overriden by `get_icons` option
+      -- will get overridden by `get_icons` option
       default = true,
       -- globally enable "strict" selection of icons - icon will be looked up in
       -- different tables, first by filename, and if not found by extension; this
@@ -42,6 +42,6 @@ return {
           name = 'Log',
         },
       },
-    }
+    })
   end,
 }
