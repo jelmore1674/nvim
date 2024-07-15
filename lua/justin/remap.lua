@@ -3,6 +3,7 @@ local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- Set <space> as the leader key
+-- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -13,6 +14,19 @@ vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 -- Move Highlight section
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- keep in middle
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- greatest remap ever
+vim.keymap.set('x', '<leader>p', [["_dP]])
+
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
 
 -- Tmux
 vim.keymap.set('n', '<leader>ts', '<cmd>silent !tmux neww tmux-sessionizer<CR>', opts)
@@ -37,11 +51,6 @@ keymap('n', '<C-k>', '<C-w>k', opts)
 keymap('n', '<C-l>', '<C-w>l', opts)
 keymap('n', '<C-tab>', '<c-6>', opts)
 
--- Tabs --
-keymap('n', '<m-t>', ':tabnew %<cr>', opts)
-keymap('n', '<m-y>', ':tabclose<cr>', opts)
-keymap('n', '<m-\\>', ':tabonly<cr>', opts)
-
 -- Resize with arrows
 keymap('n', '<C-Up>', ':resize -2<CR>', opts)
 keymap('n', '<C-Down>', ':resize +2<CR>', opts)
@@ -49,7 +58,6 @@ keymap('n', '<C-Left>', ':vertical resize -2<CR>', opts)
 keymap('n', '<C-Right>', ':vertical resize +2<CR>', opts)
 
 keymap('n', '<leader>tw', ':silent !tmux neww -d -n "$(basename $(pwd))"<CR>', opts)
-keymap('n', '<leader>tf', ':KickstartFormatToggle<CR>', opts)
 
 -- Sort lines
 keymap('v', '<leader>s', ':sort<CR>', opts)
