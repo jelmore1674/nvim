@@ -72,7 +72,6 @@ return {
       -- Web
       -- javascript/typescript
       biome = {},
-      eslint = {},
       tsserver = {},
       astro = {
         provideFormatter = false,
