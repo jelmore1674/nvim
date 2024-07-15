@@ -185,6 +185,8 @@ return {
       end,
     })
 
+    require('lspconfig').csharp_ls.setup({})
+
     local isLspDiagnosticsVisible = true
     vim.keymap.set('n', '<leader>lx', function()
       isLspDiagnosticsVisible = not isLspDiagnosticsVisible
