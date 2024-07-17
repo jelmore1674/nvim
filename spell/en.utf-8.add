@@ -28,3 +28,7 @@ fahrenheit
 setBlockParameter
 setRemoteControlFlag
 boolean
+timer1
+timer2
+isEnabled
+isTimer1
