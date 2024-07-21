@@ -149,7 +149,16 @@ return {
       rust_analyzer = {},
 
       -- go
-      gopls = {},
+      gopls = {
+        gopls = {
+          experimentalPostfixCompletions = true,
+          analyses = {
+            unusedparams = true,
+            shadow = true,
+          },
+          staticcheck = true,
+        },
+      },
 
       -- lua
       lua_ls = {
