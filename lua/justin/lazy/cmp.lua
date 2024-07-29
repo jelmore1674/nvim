@@ -89,7 +89,13 @@ return {
         { name = 'emoji' },
         { name = 'git' }, -- git stuffs
         { name = 'gitmoji' }, -- git emojis
+        { name = 'vim-dadbod-completion' },
       }),
+    })
+
+    cmp.setup.filetype({ 'sql' }, {
+      { name = 'vim-dadbod-completion' },
+      { name = 'buffer' },
     })
 
     -- Configure git completions
