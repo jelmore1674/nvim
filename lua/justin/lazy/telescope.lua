@@ -5,6 +5,7 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'someone-stole-my-name/yaml-companion.nvim',
   },
 
   config = function()
@@ -25,6 +26,7 @@ return {
 
     -- Enable telescope worktree extension, if installed
     require('telescope').load_extension('git_worktree')
+    require('telescope').load_extension('yaml_schema')
 
     -- See `:help telescope.builtin`
     vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })

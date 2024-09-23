@@ -13,6 +13,7 @@ return {
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
+    'b0o/schemastore.nvim',
   },
 
   config = function()
@@ -133,7 +134,26 @@ return {
 
       -- YAML
       azure_pipelines_ls = {},
-      yamlls = {},
+      yamlls = {
+        yaml = {
+          schemaStore = {
+            -- You must disable built-in schemaStore support if you want to use
+            -- this plugin and its advanced options like `ignore`.
+            enable = false,
+            -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+            url = '',
+          },
+          -- schemas = require('schemastore').yaml.schemas(),
+          -- schemas = {
+          --   ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
+          --   ['https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/assets/javascripts/editor/schema/ci.json'] = '/gitlab-ci.yml',
+          --   ['https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook'] = '**/playbooks/*.yml',
+          -- },
+          -- schemaDownload = { enable = true },
+          -- validate = true,
+        },
+      },
+      gitlab_ci_ls = {},
 
       -- Markdown
       marksman = {},
@@ -192,6 +212,30 @@ return {
         })
       end,
     })
+    local cfg = require('yaml-companion').setup({
+      -- Add any options here, or leave empty to use the default settings
+      lspconfig = {
+        yaml = {
+          schemaStore = {
+            -- You must disable built-in schemaStore support if you want to use
+            -- this plugin and its advanced options like `ignore`.
+            enable = false,
+            -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+            url = '',
+          },
+          schemas = require('schemastore').yaml.schemas(),
+          -- schemas = {
+          --   ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
+          --   ['https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/assets/javascripts/editor/schema/ci.json'] = '/gitlab-ci.yml',
+          -- },
+          -- schemaDownload = { enable = true },
+          -- validate = true,
+        },
+      },
+    })
+    require('lspconfig')['yamlls'].setup(cfg)
+
+    vim.keymap.set('n', '<leader>yc', ':Telescope yaml_schema<CR>')
 
     require('lspconfig').csharp_ls.setup({})
 

@@ -4,20 +4,46 @@ return {
   config = function()
     local conform = require('conform')
 
+    ---@param bufnr integer
+    ---@param ... string
+    ---@return string
+    local function first(bufnr, ...)
+      local conform = require('conform')
+      for i = 1, select('#', ...) do
+        local formatter = select(i, ...)
+        if conform.get_formatter_info(formatter, bufnr).available then
+          return formatter
+        end
+      end
+      return select(1, ...)
+    end
+
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { { 'dprint', 'prettier' } },
-        typescript = { { 'dprint', 'prettier' } },
-        javascriptreact = { { 'dprint', 'prettier' } },
-        typescriptreact = { { 'dprint', 'prettier' } },
-        svelte = { { 'dprint', 'prettier' } },
+        javascript = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
+        typescript = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
+        javascriptreact = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
+        typescriptreact = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
+        svelte = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
         astro = { 'biome', 'dprint' },
-        css = { { 'dprint', 'prettier' } },
-        html = { { 'dprint', 'prettier' } },
-        json = { 'dprint', 'prettier' },
-        yaml = { 'dprint', 'prettier' },
+        css = { 'prettier' },
+        html = { 'prettier' },
+        json = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
+        yaml = { 'prettier' },
         markdown = { 'prettier' },
         graphql = { 'dprint', 'prettier' },
         lua = { 'stylua' },
@@ -49,6 +75,13 @@ return {
           prepend_args = { '-i', '2' },
           -- The base args are { "-filename", "$FILENAME" } so the final args will be
           -- { "-i", "2", "-filename", "$FILENAME" }
+        },
+
+        yamlfix = {
+          -- Adds environment args to the yamlfix formatter
+          env = {
+            YAMLFIX_SEQUENCE_STYLE = 'block_style',
+          },
         },
 
         dprint = {
