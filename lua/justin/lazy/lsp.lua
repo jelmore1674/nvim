@@ -71,8 +71,8 @@ return {
     local servers = {
       -- Web
       -- javascript/typescript
-      biome = {},
-      tsserver = {},
+      --biome = {},
+      ts_ls = {},
       astro = {
         provideFormatter = false,
       },
@@ -102,14 +102,13 @@ return {
       -- css
       cssls = {},
       cssmodules_ls = {},
-      stylelint_lsp = {
-        stylelintplus = {
-          -- see available options in stylelint-lsp documentation
-          autoFixOnSave = true,
-          autoFixOnFormat = true,
-        },
-      },
-      tailwindcss = {},
+      -- stylelint_lsp = {
+      --   stylelintplus = {
+      --     -- see available options in stylelint-lsp documentation
+      --     autoFixOnSave = true,
+      --     autoFixOnFormat = true,
+      --   },
+      -- },
 
       -- Graphql
       graphql = {
@@ -194,6 +193,21 @@ return {
     })
 
     require('lspconfig').csharp_ls.setup({})
+
+    require('lspconfig').stylelint_lsp.setup({
+      filetypes = { 'css', 'scss' },
+      root_dir = require('lspconfig').util.root_pattern('package.json', '.git'),
+      settings = {
+        stylelintplus = {
+          -- see available options in stylelint-lsp documentation
+          -- autoFixOnFormat = true,
+          -- autoFixOnSave = true,
+        },
+      },
+      on_attach = function(client)
+        client.server_capabilities.document_formatting = false
+      end,
+    })
 
     local isLspDiagnosticsVisible = true
     vim.keymap.set('n', '<leader>lx', function()

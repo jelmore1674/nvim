@@ -8,14 +8,14 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { { 'dprint', 'prettier' } },
-        typescript = { { 'dprint', 'prettier' } },
-        javascriptreact = { { 'dprint', 'prettier' } },
-        typescriptreact = { { 'dprint', 'prettier' } },
-        svelte = { { 'dprint', 'prettier' } },
+        javascript = { 'prettier', 'dprint' },
+        typescript = { 'biome', 'dprint' },
+        javascriptreact = { 'biome', 'dprint' },
+        typescriptreact = { 'prettier', 'biome', 'dprint' },
+        svelte = { 'dprint', 'prettier' },
         astro = { 'biome', 'dprint' },
-        css = { { 'dprint', 'prettier' } },
-        html = { { 'dprint', 'prettier' } },
+        css = { 'stylelint', 'biome' },
+        html = { 'dprint', 'prettier' },
         json = { 'dprint', 'prettier' },
         yaml = { 'dprint', 'prettier' },
         markdown = { 'prettier' },
@@ -35,16 +35,9 @@ return {
         timeout_ms = 1000,
       },
       formatters = {
-        -- prettier = {
-        --   args = {
-        --     '--config-precedence=prefer-file',
-        --     '--single-quote',
-        --     '--trailing-comma none',
-        --     '--vue-indent-script-and-style',
-        --     '--write',
-        --     '$FILENAME',
-        --   },
-        -- },
+        prettier = {
+          prepend_args = { '--single-quote', '--conifg-precedence', 'file-override' },
+        },
         shfmt = {
           prepend_args = { '-i', '2' },
           -- The base args are { "-filename", "$FILENAME" } so the final args will be
@@ -57,6 +50,13 @@ return {
             return vim.fs.find({ 'dprint.json' }, { path = ctx.filename, upward = true })[1]
           end,
         },
+
+        -- stylelint = {
+        --   condition = function(ctx)
+        --     ---@diagnostic disable-next-line: return-type-mismatch, undefined-field
+        --     return vim.fs.find({ '.stylelintrc.mjs' }, { path = ctx.filename, upward = true })[1]
+        --   end,
+        -- },
       },
       log_level = vim.log.levels.DEBUG,
     })
