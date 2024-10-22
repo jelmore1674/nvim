@@ -36,7 +36,7 @@ return {
         svelte = function(bufnr)
           return { first(bufnr, 'dprint', 'prettier') }
         end,
-        css = { 'prettier' },
+        css = { 'stylelint_lsp' },
         html = { 'prettier' },
         json = function(bufnr)
           return { first(bufnr, 'dprint', 'prettier') }
