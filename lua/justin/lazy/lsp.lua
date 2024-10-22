@@ -3,6 +3,7 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
     -- Completion
     'hrsh7th/nvim-cmp',
     'j-hui/fidget.nvim',
@@ -72,7 +73,6 @@ return {
     local servers = {
       -- Web
       -- javascript/typescript
-      --biome = {},
       ts_ls = {},
       astro = {
         provideFormatter = false,
@@ -212,6 +212,7 @@ return {
         })
       end,
     })
+
     local cfg = require('yaml-companion').setup({
       -- Add any options here, or leave empty to use the default settings
       lspconfig = {
@@ -251,12 +252,12 @@ return {
       settings = {
         stylelintplus = {
           -- see available options in stylelint-lsp documentation
-          -- autoFixOnFormat = true,
-          -- autoFixOnSave = true,
+          autoFixOnFormat = true,
+          autoFixOnSave = true,
         },
       },
       on_attach = function(client)
-        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = true
       end,
     })
 
@@ -268,5 +269,13 @@ return {
         underline = isLspDiagnosticsVisible,
       })
     end)
+
+    local mason_tool_installer = require('mason-tool-installer')
+
+    mason_tool_installer.setup({
+      ensure_installed = {
+        { 'biome', version = '1.7.3' },
+      },
+    })
   end,
 }
