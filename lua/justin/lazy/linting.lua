@@ -13,11 +13,16 @@ return {
     local lint = require('lint')
 
     lint.linters_by_ft = {
-      javascript = { 'eslint_d' },
-      typescript = { 'eslint_d' },
-      javascriptreact = { 'eslint_d' },
-      typescriptreact = { 'eslint_d' },
-      astro = { 'eslint_d' },
+      -- javascript = { 'eslint_d' },
+      -- typescript = { 'eslint_d' },
+      -- javascriptreact = { 'eslint_d' },
+      -- typescriptreact = { 'eslint_d' },
+      -- astro = { 'eslint_d' },
+      javascript = { 'biomejs' },
+      typescript = { 'biomejs' },
+      javascriptreact = { 'biomejs' },
+      -- typescriptreact = { 'biomejs' },
+      astro = { 'biomejs' },
       css = { 'stylelint' },
       markdown = { 'markdownlint' },
       -- Use the "*" filetype to run linters on all filetypes.

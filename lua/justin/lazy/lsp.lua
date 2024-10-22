@@ -99,6 +99,7 @@ return {
         provideFormatter = false,
       },
       emmet_language_server = {},
+      -- ts_ls = {},
 
       -- css
       cssls = {},
@@ -235,6 +236,12 @@ return {
     require('lspconfig')['yamlls'].setup(cfg)
 
     vim.keymap.set('n', '<leader>yc', ':Telescope yaml_schema<CR>')
+
+    vim.filetype.add({
+      extension = {
+        mdx = 'markdown',
+      },
+    })
 
     require('lspconfig').csharp_ls.setup({})
 
