@@ -18,7 +18,7 @@ return {
       javascriptreact = { 'eslint_d' },
       typescriptreact = { 'eslint_d' },
       astro = { 'eslint_d' },
-      css = { 'stylelint' },
+      -- css = { 'stylelint' },
       markdown = { 'markdownlint' },
       -- Use the "*" filetype to run linters on all filetypes.
       ['*'] = { 'cspell', 'codespell' },
