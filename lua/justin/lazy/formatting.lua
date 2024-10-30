@@ -33,6 +33,9 @@ return {
         typescriptreact = function(bufnr)
           return { first(bufnr, 'dprint', 'prettier') }
         end,
+        astro = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
         svelte = function(bufnr)
           return { first(bufnr, 'dprint', 'prettier') }
         end,
