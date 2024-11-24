@@ -190,6 +190,9 @@ return {
 
       -- bash
       bashls = {},
+
+      -- toml
+      taplo = {},
     }
 
     -- Mason
