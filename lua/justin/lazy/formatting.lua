@@ -39,10 +39,12 @@ return {
         svelte = function(bufnr)
           return { first(bufnr, 'dprint', 'prettier') }
         end,
-        css = { 'prettier' },
+        css = function(bufnr)
+          return { first(bufnr, 'dprint', 'prettier') }
+        end,
         html = { 'prettier' },
         json = function(bufnr)
-          return { first(bufnr, 'dprint', 'prettier') }
+          return { first(bufnr, 'dprint', 'biome') }
         end,
         yaml = { 'prettier' },
         markdown = { 'prettier' },
@@ -50,6 +52,7 @@ return {
         lua = { 'stylua' },
         sh = { 'shfmt' },
         cs = { 'csharpier' },
+        toml = { 'taplo' },
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't
@@ -63,7 +66,13 @@ return {
       },
       formatters = {
         prettier = {
-          prepend_args = { '--single-quote', '--conifg-precedence', 'file-override' },
+          prepend_args = function(_, ctx)
+            if string.match(ctx.filename, 'yaml') or string.match(ctx.filename, 'yml') then
+              return {}
+            else
+              return { '--single-quote', '--conifg-precedence', 'file-override' }
+            end
+          end,
         },
         shfmt = {
           prepend_args = { '-i', '2' },
