@@ -134,6 +134,7 @@ return {
 
       -- YAML
       azure_pipelines_ls = {},
+
       yamlls = {
         yaml = {
           schemaStore = {
@@ -238,12 +239,23 @@ return {
       },
     })
     require('lspconfig')['yamlls'].setup(cfg)
+    require('lspconfig').jsonls.setup({
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      },
+      capabilities = capabilities,
+    })
 
     vim.keymap.set('n', '<leader>yc', ':Telescope yaml_schema<CR>')
 
     vim.filetype.add({
       extension = {
         mdx = 'markdown',
+        caddy = 'caddy',
+        caddyfile = 'caddy',
       },
     })
 

@@ -53,6 +53,7 @@ return {
         sh = { 'shfmt' },
         cs = { 'csharpier' },
         toml = { 'taplo' },
+        caddy = { 'caddy' },
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
         -- Use the "_" filetype to run formatters on filetypes that don't
@@ -65,6 +66,11 @@ return {
         timeout_ms = 1000,
       },
       formatters = {
+        caddy = {
+          command = 'caddy',
+          args = { 'fmt', '$FILENAME' },
+          stdin = true,
+        },
         prettier = {
           prepend_args = function(_, ctx)
             if string.match(ctx.filename, 'yaml') or string.match(ctx.filename, 'yml') then
